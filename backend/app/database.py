@@ -1,9 +1,14 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.engine.base import Connection
-from .models import Base
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.ext.declarative import declarative_base
 
-# Database setup
+
+Base = declarative_base()
 engine = create_engine(os.environ.get("DATABASE_URL"))
-Session = sessionmaker(bind=engine)
+Session = scoped_session(sessionmaker(bind=engine))
+
+def init_db(app):
+    with app.app_context():
+        Base.metadata.create_all(bind=engine)
