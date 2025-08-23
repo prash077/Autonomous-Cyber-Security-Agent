@@ -5,6 +5,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Enum
 from sqlalchemy.orm import relationship, DeclarativeBase, sessionmaker
 from datetime import datetime
 import enum
+from .agents.crew import SecurityCrew
 
 load_dotenv()
 
@@ -57,11 +58,13 @@ class Report(Base):
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-    
-    @app.route("/ping")
-    def ping():
-        return {"message": "pong"}
 
+    @app.route("/run-crew")
+    def run_crew():
+        target_url = "http://example.com"
+        crew_runner = SecurityCrew(target_url)
+        result = crew_runner.run()
+        return {"result": str(result)}
     return app
 
 app = create_app()
