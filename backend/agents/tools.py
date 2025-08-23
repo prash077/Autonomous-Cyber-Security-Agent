@@ -4,11 +4,19 @@ from crewai.tools import BaseTool
 class TerminalTool(BaseTool):
     name: str = "Terminal Tool"
     description: str = "Executes a terminal command and returns its output."
-    
+
     def _run(self, command: str) -> str:
+        nmap_path = "C:\\Program Files (x86)\\Nmap\\nmap.exe"
+        
+        if command.startswith("nmap"):
+
+            command_parts = [nmap_path] + command.split()[1:]
+        else:
+            command_parts = command.split()
+            
         try:
             result = subprocess.run(
-                command.split(),
+                command_parts,
                 check=True,
                 capture_output=True,
                 text=True
