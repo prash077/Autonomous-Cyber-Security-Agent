@@ -19,7 +19,7 @@ class SecurityCrew:
                 tasks.recon_task(agents.recon_agent()),
             ],
             process=Process.sequential,
-            verbose=2,
+            verbose=True,
             full_output=True,
         )
 

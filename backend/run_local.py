@@ -5,10 +5,9 @@ from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Enum
 from sqlalchemy.orm import relationship, DeclarativeBase, sessionmaker
 from datetime import datetime
 import enum
-from .agents.crew import SecurityCrew
+from agents.crew import SecurityCrew
 
 load_dotenv()
-
 
 class Base(DeclarativeBase):
     pass

@@ -1,5 +1,5 @@
 import subprocess
-from crewai_tools import BaseTool
+from crewai.tools import BaseTool
 
 class TerminalTool(BaseTool):
     name: str = "Terminal Tool"
